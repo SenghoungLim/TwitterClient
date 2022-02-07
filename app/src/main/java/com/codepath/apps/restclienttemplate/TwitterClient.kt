@@ -69,6 +69,19 @@ class TwitterClient(context: Context) : OAuthBaseClient(
         client.get(apiUrl, params, handler)
     }
 
+    fun publishTweet(tweetContent:String, handler: JsonHttpResponseHandler) {
+        val apiUrl =
+            getApiUrl("statuses/update.json") //Taken from POST,retrieve..Documentation from
+        //Tweeter developer: Resource URL
+
+        // Can specify query string params directly or through RequestParams.
+        val params = RequestParams() //declare that we need to request certain info
+        params.put("status", tweetContent)
+        client.post(apiUrl, params,"", handler) //client.post instead of get because we actually writing
+        //data to the tweeter data now
+    }
+
+
     /* 1. Define the endpoint URL with getApiUrl and pass a relative path to the endpoint
 	 * 	  i.e getApiUrl("statuses/home_timeline.json")
 	 * 2. Define the parameters to pass to the request (query or body)
